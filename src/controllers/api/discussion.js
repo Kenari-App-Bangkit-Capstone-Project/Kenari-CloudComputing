@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 
-const { Discussions } = require("../../models");
+const { Discussions, DiscussionComments } = require("../../models");
 
 module.exports = {
     createDiscussion: async (req, res) => {
@@ -137,6 +137,47 @@ module.exports = {
                 res.status(404).json({
                     message: "diskusi tidak ditemukan atau tidak memiliki izin untuk dihapus",
                 });
+            }
+
+        } catch (err) {
+            res.status(500).json({
+                message: err.message || `Internal server error!`,
+            });
+        }
+    },
+
+    addComment: async (req, res) => {
+        try {
+            const user_id = req.user.user_id;
+            const { id } = req.params;
+            const { comment } = req.body;  
+
+            const discussion = await Discussions.findOne({
+                where: {
+                    id: id,
+                    status: {
+                        [Op.not]: 'deleted'
+                    }
+                },
+            })
+
+            if (discussion) {
+                const newComment = await DiscussionComments.create({
+                    user_id: user_id,
+                    discussion_id: id,
+                    comment: comment
+                })
+    
+                res.status(200).json({
+                    message: "Sukses menambahkan komentar baru!",
+                    data: {
+                        newComment
+                    }
+                })
+            } else {
+                res.status(404).json({
+                    message: "Diskusi tidak ditemukan!",
+                })
             }
 
         } catch (err) {
