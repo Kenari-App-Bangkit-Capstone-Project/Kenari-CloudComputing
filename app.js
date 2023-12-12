@@ -11,6 +11,7 @@ var usersRouter = require("./src/routes/users");
 const mbtiRouter = require("./src/routes/api/mbti");
 const authRouter = require("./src/routes/api/auth");
 const chatbotRouter = require("./src/routes/api/chatbot");
+const discussionRouter = require("./src/routes/api/discussion");
 
 var app = express();
 const URL = `/api/v1`;
@@ -33,6 +34,7 @@ app.use("/users", usersRouter);
 app.use(`${URL}/mbti`, mbtiRouter);
 app.use(`${URL}/auth`, authRouter);
 app.use(`${URL}/chatbot`, chatbotRouter);
+app.use(`${URL}/discussion`, discussionRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
