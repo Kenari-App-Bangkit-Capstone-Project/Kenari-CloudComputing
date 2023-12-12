@@ -14,6 +14,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       user_input: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       response: {

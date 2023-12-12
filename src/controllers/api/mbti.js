@@ -140,9 +140,12 @@ module.exports = {
 
     getUserHistories: async (req, res) => {
         try {
-            const user = req.user;
+            const user_id = req.user.user_id;
 
             const mbtiHistories = await MbtiUserHistories.findAll({
+                where: {
+                    user_id: user_id,
+                },
                 order: [['createdAt', 'DESC']]
             })
 
