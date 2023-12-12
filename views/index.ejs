@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+    <ul>
+      <% characters.map((character) => { %>
+
+        <li>
+          <%= character.code %> - <%= character.character %>
+        </li>
+
+      <% }) %>
+    </ul>
+
+    <!-- <form id="characterForm">
+      <% characters.map((character) => { %>
+        <div>
+          <input type="checkbox" name="<%= character.code %>" id="<%= character.code %>" />
+          <label for="<%= character.code %>"><%= character.character %></label>
+        </div>
+      <% }) %>
+
+      <button type="button" onclick="submitForm()">Selesai</button>
+    </form>
+
+    <script>
+      function submitForm() {
+        var checkboxes = document.querySelectorAll('#characterForm input[type="checkbox"]');
+        var selectedCharacters = [];
+
+        checkboxes.forEach(function(checkbox) {
+          if (checkbox.checked) {
+            selectedCharacters.push(checkbox.name);
+          }
+        });
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/result", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        xhr.send(JSON.stringify({ selectedCharacters: selectedCharacters }));
+      }
+    </script> -->
+  </body>
+</html>
