@@ -31,12 +31,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     createdAt: {
       allowNull: false,
+      defaultValue: sequelize.fn('now'),
       type: DataTypes.DATE
     },
   }, {
     sequelize,
-    tableName: 'mbti_user_history',
-    modelName: 'MbtiUserHistory',
+    timestamps: false,
+    tableName: 'mbti_user_histories',
+    modelName: 'MbtiUserHistories',
   });
   return mbti_user_history;
 };

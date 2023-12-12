@@ -1,4 +1,4 @@
-const { MbtiCharacters, MbtiRules, MbtiTypes } = require("../../models");
+const { MbtiCharacters, MbtiRules, MbtiTypes, MbtiUserHistories } = require("../../models");
 
 module.exports = {
     index: async (req, res) => {
@@ -107,12 +107,17 @@ module.exports = {
         });
 
         // Save Test History
-        
+        await MbtiUserHistories.create({
+            user_id: user.user_id,
+            type_result: typeResult.code,
+            result_probability: maxValue
+        })
 
         res.status("200").json({
             message: "Sukses",
             typeResult,
             probResult: maxValue,
+            resultDate: Date.now()
             // allProbability: probFinal,
         })
     }
