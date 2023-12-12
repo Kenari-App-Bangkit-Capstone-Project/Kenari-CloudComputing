@@ -87,8 +87,8 @@ module.exports = {
                         );
 
                         res.status(200).json({
+                            message: "Sukses melakukan login",
                             data: {
-                                message: "Sukses melakukan login",
                                 token
                             }
                         })
