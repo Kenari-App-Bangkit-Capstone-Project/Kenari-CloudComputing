@@ -1,3 +1,5 @@
+const { Op } = require('sequelize');
+
 const { Discussions } = require("../../models");
 
 module.exports = {
@@ -18,6 +20,90 @@ module.exports = {
                 }
             })
 
+        } catch (err) {
+            res.status(500).json({
+                message: err.message || `Internal server error!`,
+            });
+        }
+    },
+
+    getDiscussionsByID: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            const discussion = await Discussions.findOne({
+                where: {
+                    id: id,
+                    status: {
+                        [Op.not]: 'deleted'
+                    }
+                },
+            })
+
+            if (discussion) {
+                res.status(200).json({
+                    message: "Sukses mendapatkan data!",
+                    data: {
+                        discussion
+                    }
+                })
+            } else {
+                res.status(404).json({
+                    message: "Data tidak ditemukan!",
+                })
+            }
+
+        } catch (err) {
+            res.status(500).json({
+                message: err.message || `Internal server error!`,
+            });
+        }
+    },
+
+    getAllDiscussion: async (req, res) => {
+        try {
+            const discussions = await Discussions.findAll({
+                where: {
+                    status: {
+                        [Op.not]: 'deleted'
+                    }
+                },
+                order: [['createdAt', 'DESC']],  
+            })
+
+            res.status(200).json({
+                message: "Sukses mendapatkan data!",
+                data: {
+                    discussions
+                }
+            })
+        } catch (err) {
+            res.status(500).json({
+                message: err.message || `Internal server error!`,
+            });
+        }
+    },
+
+    getUserDiscussion: async (req, res) => {
+        try {
+            const user_id = req.user.user_id;
+
+            const discussions = await Discussions.findAll({
+                where: {
+                    user_id: user_id,
+                    status: {
+                        [Op.not]: 'deleted'
+                    }
+                },
+                order: [['createdAt', 'DESC']],  
+            })
+
+            res.status(200).json({
+                message: "Sukses mendapatkan data!",
+                data: {
+                    discussions
+                }
+            })
         } catch (err) {
             res.status(500).json({
                 message: err.message || `Internal server error!`,
