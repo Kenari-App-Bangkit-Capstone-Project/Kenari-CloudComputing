@@ -1,5 +1,5 @@
 const { ChatHistories } = require("../../models");
-
+const { Op } = require('sequelize');
 
 module.exports = {
     chatSave: async (req, res) => {
@@ -34,6 +34,9 @@ module.exports = {
             const chatHistories = await ChatHistories.findAll({
                 where: {
                     user_id: user_id,
+                    status: {
+                        [Op.not]: 'deleted'
+                    }
                 },
                 order: [['createdAt', 'DESC']],  
             })

@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class chat_histories extends Model {
+  class discussions extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  chat_histories.init({
+  discussions.init({
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -24,27 +24,29 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING
     },
-    user_input: {
+    content: {
       allowNull: false,
-      type: DataTypes.STRING
-    },
-    response: {
-      type: DataTypes.STRING
+      type: DataTypes.TEXT
     },
     status: {
+      allowNull: false,
       defaultValue: 'active',
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     createdAt: {
       allowNull: false,
       defaultValue: sequelize.fn('now'),
       type: DataTypes.DATE
     },
+    updatedAt: {
+      allowNull: false,
+      defaultValue: sequelize.fn('now'),
+      type: DataTypes.DATE
+    },
   }, {
     sequelize,
-    timestamps: false,
-    tableName: 'chat_histories',
-    modelName: 'ChatHistories',
+    tableName: 'discussions',
+    modelName: 'Discussions',
   });
-  return chat_histories;
+  return discussions;
 };
