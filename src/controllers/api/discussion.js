@@ -27,7 +27,7 @@ module.exports = {
         }
     },
 
-    getDiscussionsByID: async (req, res) => {
+    getDiscussionsDetailByID: async (req, res) => {
         try {
             const { id } = req.params;
 
@@ -41,15 +41,23 @@ module.exports = {
             })
 
             if (discussion) {
+                const comments = await DiscussionComments.findAll({
+                    where: {
+                        discussion_id: id,
+                    },
+                    order: [['createdAt', 'ASC']], 
+                }) 
+
                 res.status(200).json({
                     message: "Sukses mendapatkan data!",
                     data: {
-                        discussion
+                        discussion,
+                        comments
                     }
                 })
             } else {
                 res.status(404).json({
-                    message: "Data tidak ditemukan!",
+                    message: "Diskusi tidak ditemukan!",
                 })
             }
 
