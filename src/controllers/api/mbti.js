@@ -22,7 +22,7 @@ module.exports = {
         const { selected_characters } = req.body;
         const mbtiTypes = await MbtiTypes.findAll()
 
-        // let listCharacters = selected_characters.replace(/(\w+)/g, '"$1"');
+        const user = req.user;
 
         listCharacters = selected_characters;
  
@@ -105,6 +105,9 @@ module.exports = {
                 code: maxKey,
             }
         });
+
+        // Save Test History
+        
 
         res.status("200").json({
             message: "Sukses",

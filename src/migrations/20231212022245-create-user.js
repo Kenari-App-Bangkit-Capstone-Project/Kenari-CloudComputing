@@ -33,6 +33,9 @@ module.exports = {
       personality: {
         type: Sequelize.STRING  
       },
+      profile_photo: {
+        type: Sequelize.STRING  
+      },
       createdAt: {
         allowNull: false,
         defaultValue: Sequelize.fn('now'),

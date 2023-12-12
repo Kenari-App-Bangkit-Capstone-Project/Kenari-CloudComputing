@@ -1,7 +1,7 @@
-const config = require("../../config");
+const config = require("../config");
 const jwt = require('jsonwebtoken')
 
-const { Users } = require("../../models");
+const { Users } = require("../models");
 
 const isLoginUser = async (req, res, next) => {
     try {
