@@ -52,5 +52,35 @@ module.exports = {
                 message: err.message || `Internal server error!`,
             });
         }
+    },
+
+    deleteUserChat: async (req, res) => {
+        try {
+            const user_id = req.user.user_id;
+
+            const chatDeleted = await ChatHistories.update(
+                {
+                    status: 'deleted',
+                },
+                {
+                    where: {
+                        user_id: user_id,
+                    },
+                }
+            );
+            if (chatDeleted[0] > 0) {
+                res.status(201).json({
+                    message: "Sukses menghapus history chat",
+                });
+            } else {
+                res.status(404).json({
+                    message: "Chat tidak ditemukan atau tidak memiliki izin untuk dihapus",
+                });
+            }
+        } catch (err) {
+            res.status(500).json({
+                message: err.message || `Internal server error!`,
+            });
+        }
     }
 }
