@@ -1,13 +1,13 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 module.exports = {
   development: {
-    username: 'postgres',
-    password: 'yoga95',
-    database: 'kenari_development',
-    host: '127.0.0.1',
-    dialect: 'postgres',
-    seeders: {
-      path: '/src/seeders',
-    },
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    host: process.env.DB_HOST,
+    dialect: process.env.DB_DIALECT,
   },
   test: {
     username: 'root',
