@@ -15,6 +15,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'user_id',
         as: 'userHistory',
       });
+      User.hasMany(models.Discussions, {
+        foreignKey: 'user_id',
+        as: 'useDiscussions',
+      });
+      User.hasMany(models.DiscussionComments, {
+        foreignKey: 'user_id',
+        as: 'userComments',
+      });
     }
   }
   User.init({

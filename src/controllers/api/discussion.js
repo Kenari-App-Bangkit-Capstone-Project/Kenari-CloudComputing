@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 
-const { Discussions, DiscussionComments } = require("../../models");
+const { Discussions, DiscussionComments, Users } = require("../../models");
 
 module.exports = {
     createDiscussion: async (req, res) => {
@@ -32,6 +32,14 @@ module.exports = {
             const { id } = req.params;
 
             const discussion = await Discussions.findOne({
+                attributes: ["id", "content", "createdAt"],
+                include: [
+                    {
+                        attributes: ["user_id", "name", "email", "label", "profile_photo"],
+                        model: Users,
+                        as: 'user',
+                    },
+                ],
                 where: {
                     id: id,
                     status: {
@@ -42,6 +50,14 @@ module.exports = {
 
             if (discussion) {
                 const comments = await DiscussionComments.findAll({
+                    attributes: ["id", "discussion_id", "comment", "createdAt"],
+                    include: [
+                        {
+                            attributes: ["user_id", "name", "email", "label", "profile_photo"],
+                            model: Users,
+                            as: 'user',
+                        },
+                    ],
                     where: {
                         discussion_id: id,
                     },
@@ -71,6 +87,14 @@ module.exports = {
     getAllDiscussion: async (req, res) => {
         try {
             const discussions = await Discussions.findAll({
+                attributes: ["id", "content", "createdAt"],
+                include: [
+                    {
+                        attributes: ["user_id", "name", "email", "label", "profile_photo"],
+                        model: Users,
+                        as: 'user',
+                    },
+                ],
                 where: {
                     status: {
                         [Op.not]: 'deleted'
@@ -97,6 +121,14 @@ module.exports = {
             const user_id = req.user.user_id;
 
             const discussions = await Discussions.findAll({
+                attributes: ["id", "content", "createdAt"],
+                include: [
+                    {
+                        attributes: ["user_id", "name", "email", "label", "profile_photo"],
+                        model: Users,
+                        as: 'user',
+                    },
+                ],
                 where: {
                     user_id: user_id,
                     status: {

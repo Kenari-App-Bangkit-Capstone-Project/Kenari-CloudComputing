@@ -11,7 +11,11 @@ module.exports = {
       },
       user_id: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        references: {
+          model: 'users',
+          key: 'user_id',
+        }
       },
       discussion_id: {
         allowNull: false,
