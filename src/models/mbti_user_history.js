@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      mbti_user_history.belongsTo(models.Users, {
+        foreignKey: 'user_id',
+        as: 'user'
+      });
+      mbti_user_history.belongsTo(models.MbtiTypes, { 
+        foreignKey: 'type_result',
+        as: 'type'
+      });
     }
   }
   mbti_user_history.init({

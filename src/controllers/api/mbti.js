@@ -1,4 +1,4 @@
-const { MbtiCharacters, MbtiRules, MbtiTypes, MbtiUserHistories } = require("../../models");
+const { MbtiCharacters, MbtiRules, MbtiTypes, MbtiUserHistories, Users } = require("../../models");
 
 module.exports = {
     index: async (req, res) => {
@@ -143,10 +143,23 @@ module.exports = {
             const user_id = req.user.user_id;
 
             const mbtiHistories = await MbtiUserHistories.findAll({
+                attributes: ["id", "result_probability", "createdAt"],
+                include: [
+                    {
+                        attributes: ["user_id", "name", "email", "label"],
+                        model: Users,
+                        as: 'user',
+                    },
+                    {
+                        attributes: ["code", "type", "information"],
+                        model: MbtiTypes,
+                        as: 'type',
+                    },
+                ],
                 where: {
                     user_id: user_id,
                 },
-                order: [['createdAt', 'DESC']]
+                order: [['createdAt', 'DESC']],
             })
 
             res.status(200).json({

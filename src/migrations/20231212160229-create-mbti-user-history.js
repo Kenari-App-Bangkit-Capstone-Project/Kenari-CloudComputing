@@ -10,10 +10,18 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       user_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        references: {
+          model: 'users',
+          key: 'user_id',
+        }
       },
       type_result: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        references: {
+          model: 'mbti_types',
+          key: 'code',
+        }
       },
       result_probability: {
         type: Sequelize.FLOAT

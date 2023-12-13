@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      mbti_types.hasMany(models.MbtiUserHistories, {
+        foreignKey: 'type_result',
+        as: 'userHistory',
+      });
     }
   }
   mbti_types.init(
