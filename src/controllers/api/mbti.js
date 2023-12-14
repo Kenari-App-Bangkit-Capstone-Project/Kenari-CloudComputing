@@ -197,5 +197,50 @@ module.exports = {
                 message: err.message || `Internal server error!`,
             });
         }
+    },
+
+    getResultbyId: async (req, res) => {
+        try {
+            const { id } = req.query;
+            const user_id = req.user.user_id;
+
+            const result = await MbtiUserHistories.findOne({
+                attributes: ["id", "result_probability", "createdAt"],
+                include: [
+                    {
+                        attributes: ["user_id", "name", "email", "label"],
+                        model: Users,
+                        as: 'user',
+                    },
+                    {
+                        attributes: ["code", "type", "information"],
+                        model: MbtiTypes,
+                        as: 'type',
+                    },
+                ],
+                where: {
+                    user_id,
+                    id
+                },
+            })
+
+            if (result) {
+                res.status(200).json({
+                    message: "Sukses mengambil data result!",
+                    data: {
+                        result
+                    }
+                })
+            } else {
+                res.status(404).json({
+                    message: "Data result tidak ditemukan!"
+                })
+            }
+
+        } catch (err) {
+            res.status(500).json({
+                message: err.message || `Internal server error!`,
+            });
+        }
     }
 }
