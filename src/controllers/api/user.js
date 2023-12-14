@@ -1,6 +1,37 @@
 const { Users, MbtiTypes } = require("../../models");
 
 module.exports = {
+    getUserById: async (req, res) => {
+        try {
+            const { id } = req.query;
+
+            const user = await Users.findOne({
+                attributes: ["user_id", "name", "email", "label", "address", "university", "personality", "profile_photo", "createdAt", "updatedAt"],
+                where: {
+                    user_id: id
+                }
+            })
+
+            if (user) {
+                res.status(200).json({
+                    message: "Sukses mengambil data user!",
+                    data: {
+                        user
+                    }
+                })
+            } else {
+                res.status(404).json({
+                    message: "Data user tidak ditemukan!"
+                })
+            }
+
+        } catch (err) {
+            res.status(500).json({
+                message: err.message || `Internal server error!`,
+            });
+        }
+    },
+
     updateUser: async (req, res) => {
         try {
             const payload = req.body;

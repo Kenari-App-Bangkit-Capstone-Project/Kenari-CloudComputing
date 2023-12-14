@@ -1,10 +1,34 @@
 const { MbtiCharacters, MbtiRules, MbtiTypes, MbtiUserHistories, Users } = require("../../models");
 
 module.exports = {
-    index: async (req, res) => {
-        res.status("200").json({
-            message: "Sukses"
-        })
+    getTypeByCode: async (req, res) => {
+        try {
+            const { code } = req.query;
+
+            const mbtiType = await MbtiTypes.findOne({
+                where: {
+                    code
+                }
+            });
+
+            if (mbtiType) {
+                res.status(200).json({
+                    message: "Sukses mengambil data tipe MBTI!",
+                    data: {
+                        mbtiType
+                    }
+                })
+            } else {
+                res.status(404).json({
+                    message: "Data MBTI tidak ditemukan!"
+                })
+            }
+
+        } catch (err) {
+            res.status(500).json({
+                message: err.message || `Internal server error!`,
+            });
+        }
     },
 
     getAllCharacters: async (req, res) => {
