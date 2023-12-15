@@ -37,6 +37,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'active',
       type: DataTypes.STRING
     },
+    isAnonymous: {
+      allowNull: false,
+      defaultValue: 'false',
+      type: DataTypes.BOOLEAN
+    },
     createdAt: {
       allowNull: false,
       defaultValue: sequelize.fn('now'),

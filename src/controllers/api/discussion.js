@@ -5,11 +5,12 @@ const { Discussions, DiscussionComments, Users } = require("../../models");
 module.exports = {
     createDiscussion: async (req, res) => {
         try {
-            let { content } = req.body;
+            let { content, isAnonymous } = req.body;
             const user_id = req.user.user_id;
 
             const newDiscussion = await Discussions.create({
                 content,
+                isAnonymous,
                 user_id
             });
 
@@ -32,7 +33,7 @@ module.exports = {
             const { id } = req.params;
 
             const discussion = await Discussions.findOne({
-                attributes: ["id", "content", "createdAt"],
+                attributes: ["id", "isAnonymous", "content", "createdAt"],
                 include: [
                     {
                         attributes: ["user_id", "name", "email", "label", "profile_photo"],
@@ -87,7 +88,7 @@ module.exports = {
     getAllDiscussion: async (req, res) => {
         try {
             const discussions = await Discussions.findAll({
-                attributes: ["id", "content", "createdAt"],
+                attributes: ["id", "isAnonymous", "content", "createdAt"],
                 include: [
                     {
                         attributes: ["user_id", "name", "email", "label", "profile_photo"],
@@ -121,7 +122,7 @@ module.exports = {
             const user_id = req.user.user_id;
 
             const discussions = await Discussions.findAll({
-                attributes: ["id", "content", "createdAt"],
+                attributes: ["id", "isAnonymous", "content", "createdAt"],
                 include: [
                     {
                         attributes: ["user_id", "name", "email", "label", "profile_photo"],

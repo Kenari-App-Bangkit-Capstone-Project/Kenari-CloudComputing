@@ -26,6 +26,11 @@ module.exports = {
         defaultValue: "active",
         type: Sequelize.STRING
       },
+      isAnonymous: {
+        allowNull: false,
+        defaultValue: "false",
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         defaultValue: Sequelize.fn('now'),
