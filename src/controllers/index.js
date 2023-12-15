@@ -1,8 +1,8 @@
-const { mbti_characters } = require("../models");
+const { MbtiCharacters } = require("../models");
 
 module.exports = {
   index: async (req, res) => {
-    const characters = await mbti_characters.findAll();
+    const characters = await MbtiCharacters.findAll();
     
     res.render("index", { title: "MBTI ExpressJS", characters });
   },
