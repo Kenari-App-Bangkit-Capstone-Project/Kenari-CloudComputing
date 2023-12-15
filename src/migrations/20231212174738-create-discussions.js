@@ -29,7 +29,7 @@ module.exports = {
       isAnonymous: {
         allowNull: false,
         defaultValue: "false",
-        type: Sequelize.BOOLEAN
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

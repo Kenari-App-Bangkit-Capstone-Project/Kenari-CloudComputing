@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     isAnonymous: {
       allowNull: false,
       defaultValue: 'false',
-      type: DataTypes.BOOLEAN
+      type: DataTypes.STRING
     },
     createdAt: {
       allowNull: false,
