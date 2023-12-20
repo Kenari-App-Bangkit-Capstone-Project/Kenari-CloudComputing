@@ -38,7 +38,7 @@ module.exports = {
                         [Op.not]: 'deleted'
                     }
                 },
-                order: [['createdAt', 'DESC']],  
+                order: [['createdAt', 'ASC']],  
             })
 
             res.status(200).json({

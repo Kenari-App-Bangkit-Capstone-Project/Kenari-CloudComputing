@@ -89,7 +89,16 @@ module.exports = {
                         res.status(200).json({
                             message: "Sukses melakukan login",
                             data: {
-                                token
+                                token,
+                                user: {
+                                    user_id: getUser.user_id,
+                                    name: getUser.name,
+                                    email: getUser.email,
+                                    label: getUser.label,
+                                    address: getUser.address,
+                                    university: getUser.university,
+                                    personality: getUser.personality
+                                }
                             }
                         })
 
